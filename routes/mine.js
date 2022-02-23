@@ -1,27 +1,23 @@
-
 // ./routes/mine.js
-
-// * The server mines a new block, and adds it to its personal chain.
-
-
+// * Mines a new block and adds to personal chain
 
 function mine(app) {
 
     app.get("/mine", (request, response) => {
 
-        // Add the block to our chain, which calls mine()
+        // Add block to personal chain
 
         global.blockchain.addBlock();
 
 
 
-        // Clear our transactions
+        // Clears transactions
 
         global.transactions = [];
 
 
 
-        // Send a success response
+        // Sends response OK
 
         let msg = `Block added: ${global.blockchain.getLastBlock().prettify()}`;
 
@@ -31,7 +27,4 @@ function mine(app) {
 
 }
 
-
-
 module.exports = mine;
-

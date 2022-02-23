@@ -1,23 +1,17 @@
-
 // ./routes/validate.js
-
-// * The server validates the blockchain.
-
-
+// Validates blockchain
 
 function validate(app) {
 
-    // Validate the server's instance of a blockchain
+    // Validates instance of blockchain
 
     app.get("/validate", function (request, response) {
 
-        // Check if the blockchain is valid
+        // Checks if blockchain is valid
 
         let isValid = global.blockchain.isChainValid();
 
-
-
-        // Formulate a response message
+        // Response message OK
 
         let responseStr = "";
 
@@ -31,9 +25,7 @@ function validate(app) {
 
         }
 
-
-
-        // Send the response for validating the blockchain
+        // Sends response from validating blockchain
 
         response
 
@@ -45,7 +37,4 @@ function validate(app) {
 
 }
 
-
-
 module.exports = validate;
-

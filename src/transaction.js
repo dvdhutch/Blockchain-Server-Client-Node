@@ -1,64 +1,40 @@
-
-
 // ./src/transaction.js
-
-// * Contains the class definition for a single transaction.
-
-
-
-// Generates a random IPv4 address string as a mock address
+// Class definition for single transaction
+// Generate random IPv4 address string as a mock address
 
 function generateRandomIPv4() {
 
     let ipv4 = "";
 
-
-
-    // Create network part 1
+    // Create network
 
     ipv4 += Math.floor(Math.random() * 255) + 1;
 
     ipv4 += ".";
 
+    ipv4 += Math.floor(Math.random() * 255) + 1;
 
+    ipv4 += ".";
 
-    // Create network part 2
+    // Create host
 
     ipv4 += Math.floor(Math.random() * 255) + 1;
 
     ipv4 += ".";
 
-
-
-    // Create host part 1
-
     ipv4 += Math.floor(Math.random() * 255) + 1;
-
-    ipv4 += ".";
-
-
-
-    // Create host part 2
-
-    ipv4 += Math.floor(Math.random() * 255) + 1;
-
-
 
     return ipv4;
 
 }
 
-
-
-// Generates a random money amount as a mock amount
+// Generate random amount of money
 
 function generateRandomMoney() {
 
     return Math.floor(Math.random() * 1000000);
 
 }
-
-
 
 class Transaction {
 
@@ -72,9 +48,7 @@ class Transaction {
 
     }
 
-
-
-    // Returns a pretty-print version of the transaction
+    // Prints transaction
 
     prettify() {
 
@@ -86,9 +60,6 @@ class Transaction {
 
 }
 
-
-// Export this object to be used elsewhere
+// Export object
 
 module.exports = Transaction;
-
-

@@ -1,59 +1,44 @@
-
 // ./src/block.js
-
-// * Contains the class definition for a single block.
-
-
-
+// Class definition of single block
 // * Imports
 
-const crypto = require("crypto"); // Used for encryption algorithms; Built-in
+const crypto = require("crypto");
 
-// Define a SHA256 hash function from our crypto library
+// Defines SHA 256 hashfunction
 
 function SHA256(message) {
 
     return crypto
 
-        .createHash("sha256") // Set the hashing algorithm to SHA256
+        .createHash("sha256") // Creates hashing algorithm of SHA256
 
-        .update(message) // Update the hash with the message
+        .update(message) // Updates hash with message
 
-        .digest("hex"); // Return the hash as a hexadecimal string
+        .digest("hex"); // Returns hash as hexadecimal string
 
 }
-
 
 class Block {
 
     constructor(prevHash = "", transactions = []) {
 
-        this.timestamp = Date.now(); // Set the timestamp to now
-
+        this.timestamp = Date.now(); // Timestamp to now
         this.transactions = transactions; // Transaction list
-
         this.hash = this.getHash(); // Current block's hash
-
         this.prevHash = prevHash; // Previous block's hash
+        this.nonce = 0; // Random value
 
-        this.nonce = 0; // Some random value for mining purposes
-
-
-
-        // Mine the block
+        // Mines block
 
         this.mine();
 
     }
 
-
-
-
-    // Returns the hash of the current block
+    // Returns hash of current block
 
     getHash() {
 
-        // Combine all transactions into strings
+        // Combines all transctions
 
         let txStr = "";
 
@@ -63,80 +48,62 @@ class Block {
 
         }
 
-
-
-        // Hash together...
+        // Hash together
 
         return SHA256(
 
-            this.prevHash + // The previous hash,
+            this.prevHash + // Previous hash
 
-                this.timestamp + // The timestamp of the block,
+                this.timestamp + // Block's timestamp
 
-                txStr + // And all transactions,
+                txStr + // All transactions
 
-                this.nonce // And let's toss in some random nonce for fun
+                this.nonce // Random nonce
 
         );
 
     }
 
-
-
-
-
-
-
-    // Mine a new block (generate a hash that works)
+    // Generate working hash
 
     mine() {
 
-        // Let's loop until our hash starts with a string 0...000
+        // Loop hash
 
-        //  The length of this string is set through difficulty (default: 1)
+        //  Length set from difficulty (default: 1)
 
         let checkString = Array(global.difficulty + 1).join("0");
-
-
 
         let tries = 0;
 
         while (!this.hash.startsWith(checkString)) {
 
-            // Increase the nonce so we get a whole different hash
+            // Increases nonce
 
             this.nonce++;
 
-
-
-            // Recompute the entire hash
+            // Recomputes hash
 
             this.hash = this.getHash();
 
-
-
-            // Count our tries!
+            // Count tries
 
             tries++;
 
         }
 
 
-
-        // Out of curiosity, let's see how many tries we took!
+        // Check number of tries
 
         console.log(`Block mined with ${tries} attempts. Hash: ${this.hash}`);
 
     }
 
-
-
-
-    // Pretty prints the block
+    // Print block
 
     prettify() {
 
-        // Add basic block parameters
+        // Block parameters
 
         let blockStr = `<div><b>Block</b> #${this.hash}</div>`;
 
@@ -144,11 +111,9 @@ class Block {
 
         blockStr += `<div><b>Previous Hash:</b> ${this.prevHash}</div>`;
 
-
-
         blockStr += "<div><b>Transactions:</b></div><div>";
 
-        // Iterate through all transactions
+        // Iterate through transactions
 
         for (let i = 0; i < this.transactions.length; i++) {
 
@@ -158,18 +123,12 @@ class Block {
 
         blockStr += "</div>";
 
-
-
         return blockStr;
 
     }
 
 }
 
-
-
-// Export this object to be used elsewhere
+// Export object
 
 module.exports = Block;
-
-

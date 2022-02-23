@@ -1,35 +1,24 @@
-
 // ./routes/newtransaction.js
-
-// * Creates a new mock transaction and adds it to the system.
-
-
-
+// Creates faux transaction
 // * Imports
 
 const Transaction = require("../src/transaction");
 
-
-
 function newtransaction(app) {
 
-    // Create a new transaction
+    // Creates new transaction
 
     app.get("/newtransaction", function (request, response) {
 
-        // Create a new Transaction object
+        // Creates new Transaction object
 
         let tx = new Transaction();
 
-
-
-        // Add the transaction to the global transactions array
+        // Add Transaction to global transactions
 
         global.transactions.push(tx);
 
-
-
-        // Send the response for creating a new transaction
+        // Sends response OK
 
         response
 
@@ -41,7 +30,4 @@ function newtransaction(app) {
 
 }
 
-
-
 module.exports = newtransaction;
-

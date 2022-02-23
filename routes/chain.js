@@ -1,23 +1,16 @@
 
 // ./routes/chain.js
-
-// * The server prints out the entire blockchain.
-
-
+// Print blockchain
 
 function chain(app) {
-
-    // Print out the entire blockchain
-
+    // Print blockchain
     app.get("/chain", function (request, response) {
 
-        // Formulate a response message
+        // Response message
 
         let chainStr = global.blockchain.prettify();
 
-
-
-        // Send the response for printing out the blockchain
+        // Send response for printing Blockchain
 
         response
 
@@ -29,7 +22,4 @@ function chain(app) {
 
 }
 
-
-
 module.exports = chain;
-

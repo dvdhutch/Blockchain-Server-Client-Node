@@ -1,23 +1,15 @@
 
 // ./routes/listtransactions.js
-
-// * Lists all transactions in the system, not currently on blocks.
-
-
-
+// List transactions that are not on blocks
 // * Imports
-
 const Transaction = require("../src/transaction");
-
-
-
 function listtransactions(app) {
 
-    // List all transactions
+    // Lists all transactions
 
     app.get("/listtransactions", function (request, response) {
 
-        // Iterate through all transactions and create a response string
+        // Creates response string
 
         let txStr = "";
 
@@ -27,9 +19,7 @@ function listtransactions(app) {
 
         }
 
-
-
-        // Send the response for creating a new transaction
+        // Sends response to generate new transaction
 
         response
 
@@ -41,7 +31,4 @@ function listtransactions(app) {
 
 }
 
-
-
 module.exports = listtransactions;
-

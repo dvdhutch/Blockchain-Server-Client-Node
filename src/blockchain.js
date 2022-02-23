@@ -1,29 +1,16 @@
-
 // ./src/blockchain.js
-
-// * Contains the class definition for a blockchain.
-
-
-
+// Class definition for blockchain
 // * Imports
 
-const Block = require("./block"); // Our class definition for a block
-
-
+const Block = require("./block"); // Class definition for block
 
 class Blockchain {
 
     constructor() {
 
-        // Chain array contains all blocks in our copy of the blockchain
-
         this.chain = [new Block(Array(65).join("0"))]; // Create genesis block
 
     }
-
-
-
-
 
     // Returns the last block in the chain
 
@@ -33,8 +20,7 @@ class Blockchain {
 
     }
 
-
-    // Returns the length of our chain
+    // Returns length of our chain
 
     getChainLength() {
 
@@ -42,35 +28,25 @@ class Blockchain {
 
     }
 
-
-
-
-
-    // Adds a new block to the chain
+    // Adds new block to the chain
 
     addBlock() {
 
-        // Mine a new block with the previous block's hash
+        // Mines new block using previous hash
 
         let newBlock = new Block(this.getLastBlock().hash, global.transactions);
 
-
-
-        // Let's add the new block to the chain, and make it immutable
+        // Creates new immutable block
 
         this.chain.push(Object.freeze(newBlock));
 
     }
 
-
-
-
-
     // Validates the chain
 
     isChainValid(blockchain = this) {
 
-        // Iterate over the chain, skipping the genesis block (i=1)
+        // Iterate chain, skips Genesis block
 
         for (let i = 1; i < blockchain.chain.length; i++) {
 
@@ -78,17 +54,15 @@ class Blockchain {
 
             const prevBlock = blockchain.chain[i - 1];
 
-
-
-            // Validate the current block's hash from the previous
+            // Validate hash from previous
 
             if (
 
-                // Check the hash, which was mined
+                // Checks hash
 
                 currentBlock.hash !== currentBlock.getHash() ||
 
-                // Check that the current block's prevHash matches
+                // Check prevHash matches
 
                 prevBlock.hash !== currentBlock.prevHash
 
@@ -98,9 +72,7 @@ class Blockchain {
 
             }
 
-
-
-            // Check the hash validity
+            // Check hash validity
 
             let checkString = Array(global.difficulty + 1).join("0");
 
@@ -112,39 +84,29 @@ class Blockchain {
 
         }
 
-
-
-        // At this point, all the blocks in the chain line up with hashes
-
-        //  so the chain is valid
+        //  chain is valid
 
         return true;
 
     }
 
-
-    // Update the chain with a new blockchain
+    // Updates chain with new blockchain
 
     replaceChain(newChain) {
 
-        // Check the length of the new chain
+        // Checks length of new chain
 
         if (newChain.length <= this.chain.length) return;
 
-
-
-        // Check that the new chain is valid
+        // Checks validity of new chain
 
         if (!this.isChainValid(newChain)) return;
 
-
-
-        // The new chain is valid, and longer, so let's replace ours
+        // Replaces our chain
 
         this.chain = newChain;
 
     }
-
 
     // Returns a string representation of the blockchain
 
@@ -159,16 +121,12 @@ class Blockchain {
             chainStr += "<br><hr>";
 
         }
-
         return chainStr;
 
     }
 
 }
 
-
-
-// Export this object to be used elsewhere
+// Export object
 
 module.exports = Blockchain;
-
