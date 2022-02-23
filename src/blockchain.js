@@ -1,7 +1,4 @@
 
-
-
-
 // ./src/blockchain.js
 
 // * Contains the class definition for a blockchain.
